@@ -137,7 +137,6 @@
             </button>
         </div>
 
-
         <!-- SECTION 2: CLASSIC CATALOG (Interactive Product Showcase) -->
         <div id="view-catalog" class="hidden bg-slate-900/85 backdrop-blur-xl border border-white/10 rounded-3xl p-5 md:p-6 shadow-2xl relative overflow-hidden transition-all duration-300">
             <!-- Elegant Accent Border -->
@@ -188,8 +187,8 @@
             <!-- Dynamic Product Image Showroom -->
             <div id="modalImageShowcase" class="bg-slate-950 p-4 border-b border-white/5 hidden">
                 <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center">
-                    <!-- Image elements -->
-                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300">
+                    <!-- Image elements with fallback built-in -->
+                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.src='https://placehold.co/400x500/021B4D/ffffff?text=Fie%CC%80rement+Que%CC%81be%CC%81cois';">
                     
                     <!-- Toggle Front/Back overlay buttons if multiple images exist -->
                     <div id="angleControls" class="absolute bottom-3 left-3 right-3 flex justify-center gap-2">
@@ -256,7 +255,7 @@
     </footer>
 
     <script>
-        // Real product catalog exact listings from collections/all
+        // Real product catalog exact listings with paths matching YOUR exact files on GitHub
         const PRODUCTS_DATABASE = [
             {
                 id: "quebec-1608-hoodie",
@@ -264,17 +263,20 @@
                 price: "65,00 $",
                 category: "Hoodies",
                 imageIcon: "🏰",
-                // Primary thumbnail that shows up on the main grid (the gorgeous Blue model photo)
-                mainImage: "Mannequin_Image1.jpg",
+                // First front thumbnail of Blue model matching your exact repository image name
+                mainImage: "Mannequin_Image1.png",
                 colors: ["Bleu", "Noir", "Latté", "Gris", "Rose"],
                 specs: "Coupe rétro athlétique • Confort absolu de 350 GSM. Inspiré de l'année de fondation de Québec.",
-                // Verbatim file references mapped by color for dynamic interactive viewing
+                // Precise mapping to your exact repository filenames and PNG formats!
                 imageMap: {
-                    "Bleu": ["Mannequin_Image1.jpg", "Mannequin_Image2.jpg"],
-                    "Noir": ["Mannequin_Image3.jpg", "Mannequin_Image9.jpg"],
-                    "Latté": ["Mannequin_Image4.jpg", "Mannequin_Image4_2.jpg"],
-                    "Gris": ["ChatGPT Image 20 mai 2026, 23 h 22 min 42 s.png", "ChatGPT Image 20 mai 2026, 23 h 24 min 29 s.png"],
-                    "Rose": ["Mannequin_Image6.jpg", "Mannequin_Image1_2.jpg"]
+                    "Bleu": ["Mannequin_Image1.png", "Mannequin_Image2.png"],
+                    "Noir": ["Mannequin_Image3.png", "Mannequin_Image9.png"],
+                    "Latté": ["Mannequin_Image4.png", "Mannequin_Image5.png"],
+                    "Gris": [
+                        "ChatGPT Image 20 mai 2026, 23 h 22 min 42 s.png", 
+                        "ChatGPT Image 20 mai 2026, 23 h 24 min 29 s.png"
+                    ],
+                    "Rose": ["Mannequin_Image6.png", "Mannequin_Image7.png"]
                 }
             },
             {
@@ -324,7 +326,6 @@
             }
         ];
 
-        // Active State of Current Custom Order Configurator
         let activeProduct = null;
         let selectedSizeState = "L"; // default
         let selectedColorState = "";
@@ -347,12 +348,13 @@
                 card.className = "group relative bg-slate-950/40 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 hover:bg-slate-950/60 transition-all duration-300 flex items-center gap-4 cursor-pointer";
                 card.onclick = () => openOrderModal(p.id);
 
-                // Use the beautiful blue mannequin model thumbnail if it's the 1608 hoodie, otherwise fall back to simple Icon
+                // Safe fallback logic in case any image path loads with delay or error
                 let mediaHTML = "";
                 if (p.mainImage) {
                     mediaHTML = `
-                        <div class="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <img src="${p.mainImage}" alt="${p.title}" class="w-full h-full object-cover">
+                        <div class="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform relative">
+                            <img src="${p.mainImage}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div style="display:none;" class="absolute inset-0 text-2xl flex items-center justify-center bg-slate-950/80 rounded-xl">${p.imageIcon}</div>
                         </div>
                     `;
                 } else {
@@ -385,7 +387,6 @@
         }
 
         function filterCatalog(category) {
-            // Update active state class on buttons
             document.querySelectorAll(".cat-filter").forEach(btn => {
                 btn.classList.remove("bg-blue-600", "text-white");
                 btn.classList.add("bg-slate-800", "text-slate-300");
@@ -423,9 +424,9 @@
             if (!product) return;
 
             activeProduct = product;
-            selectedSizeState = "L"; // Reset L default size
-            selectedColorState = product.colors[0]; // Reset to first color
-            selectedAngleState = "front"; // Reset angle view
+            selectedSizeState = "L"; // Reset default
+            selectedColorState = product.colors[0]; // Reset to first color available
+            selectedAngleState = "front"; // Reset to front
 
             document.getElementById("modalProdTitle").innerText = product.title;
             document.getElementById("modalProdPrice").innerText = product.price;
@@ -458,7 +459,6 @@
                 });
             }
 
-            // Set size selectors visual active state
             updateSizeSelectorsDOM();
             updateGeneratedMessageText();
 
@@ -478,7 +478,7 @@
             const primaryImg = document.getElementById("primaryShowcaseImg");
             const index = selectedAngleState === "front" ? 0 : 1;
             
-            // Gracefully set the correct photo asset
+            // Assign the exact repository file
             primaryImg.src = images[index] || images[0];
 
             // Render angle buttons active/inactive styling
@@ -530,7 +530,6 @@
             });
             element.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-blue-500 bg-blue-600/20 text-white transition-all duration-150";
             
-            // Also update the gallery view instantly if product has images
             if (activeProduct.imageMap) {
                 updateModalGalleryImage();
             }
@@ -549,7 +548,6 @@
             const colorSnippet = activeProduct.colors.length > 1 ? ` (${selectedColorState})` : "";
             const plainText = `Salut ! J'aimerais commander le modèle "${activeProduct.title}" en taille ${selectedSizeState}${colorSnippet}. Est-il toujours en stock ?`;
 
-            // Robust copy to clipboard matching constraints
             const tempTextArea = document.createElement("textarea");
             tempTextArea.value = plainText;
             document.body.appendChild(tempTextArea);
@@ -560,7 +558,6 @@
             closeOrderModal();
             showToast("Message copié ! Ouvrez Instagram pour l'envoyer directement.");
 
-            // Delay redirection for visual satisfaction feedback
             setTimeout(() => {
                 window.open("https://www.instagram.com/fierement_quebecois_/", "_blank");
             }, 1200);
@@ -576,7 +573,6 @@
             document.execCommand("copy");
             document.body.removeChild(tempTextArea);
 
-            // Button feedback styling
             const copyBtn = document.getElementById("copyBtn");
             const originalBtnBg = copyBtn.className;
             copyBtn.classList.add("border-emerald-500/30", "bg-emerald-950/20");
