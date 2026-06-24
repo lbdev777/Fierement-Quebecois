@@ -188,7 +188,7 @@
             <div id="modalImageShowcase" class="bg-slate-950 p-4 border-b border-white/5 hidden">
                 <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center">
                     <!-- Image elements with fallback built-in -->
-                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.src='https://placehold.co/400x500/021B4D/ffffff?text=Fie%CC%80rement+Que%CC%81be%CC%81cois';">
+                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://placehold.co/400x500/021B4D/ffffff?text=Fierement+Quebecois';">
                     
                     <!-- Toggle Front/Back overlay buttons if multiple images exist -->
                     <div id="angleControls" class="absolute bottom-3 left-3 right-3 flex justify-center gap-2">
@@ -264,19 +264,16 @@
                 category: "Hoodies",
                 imageIcon: "🏰",
                 // First front thumbnail of Blue model matching your exact repository image name
-                mainImage: "Mannequin_Image1.png",
+                mainImage: "./Mannequin_Image1.png",
                 colors: ["Bleu", "Noir", "Latté", "Gris", "Rose"],
                 specs: "Coupe rétro athlétique • Confort absolu de 350 GSM. Inspiré de l'année de fondation de Québec.",
-                // Precise mapping to your exact repository filenames and PNG formats!
+                // Image paths fixed for GitHub Pages. Keep these filenames exactly the same in your repo.
                 imageMap: {
-                    "Bleu": ["Mannequin_Image1.png", "Mannequin_Image2.png"],
-                    "Noir": ["Mannequin_Image3.png", "Mannequin_Image9.png"],
-                    "Latté": ["Mannequin_Image4.png", "Mannequin_Image5.png"],
-                    "Gris": [
-                        "ChatGPT Image 20 mai 2026, 23 h 22 min 42 s.png", 
-                        "ChatGPT Image 20 mai 2026, 23 h 24 min 29 s.png"
-                    ],
-                    "Rose": ["Mannequin_Image6.png", "Mannequin_Image7.png"]
+                    "Bleu": ["./Mannequin_Image1.png", "./Mannequin_Image2.png"],
+                    "Noir": ["./Mannequin_Image3.png", "./Mannequin_Image10.png"],
+                    "Latté": ["./Mannequin_Image4.png", "./Mannequin_Image5.png"],
+                    "Gris": ["./gris-front.png", "./gris-back.png"],
+                    "Rose": ["./Mannequin_Image6.png", "./Mannequin_Image7.png"]
                 }
             },
             {
