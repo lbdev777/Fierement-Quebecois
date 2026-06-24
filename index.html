@@ -188,7 +188,7 @@
             <div id="modalImageShowcase" class="bg-slate-950 p-4 border-b border-white/5 hidden">
                 <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center">
                     <!-- Image elements with fallback built-in -->
-                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://placehold.co/400x500/021B4D/ffffff?text=Fierement+Quebecois';">
+                    <img id="primaryShowcaseImg" src="" alt="Product view" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.src='https://placehold.co/400x500/021B4D/ffffff?text=Fie%CC%80rement+Que%CC%81be%CC%81cois';">
                     
                     <!-- Toggle Front/Back overlay buttons if multiple images exist -->
                     <div id="angleControls" class="absolute bottom-3 left-3 right-3 flex justify-center gap-2">
@@ -255,7 +255,9 @@
     </footer>
 
     <script>
-        // Real product catalog exact listings with paths matching YOUR exact files on GitHub
+        // Product catalog with corrected color/image mapping.
+        // IMPORTANT: the first filename in each list is what your GitHub repo should use.
+        // Extra filenames are fallbacks in case your files kept the uploaded names with parentheses.
         const PRODUCTS_DATABASE = [
             {
                 id: "quebec-1608-hoodie",
@@ -263,17 +265,39 @@
                 price: "65,00 $",
                 category: "Hoodies",
                 imageIcon: "🏰",
-                // First front thumbnail of Blue model matching your exact repository image name
-                mainImage: "./Mannequin_Image1.png",
+                mainImage: ["./Mannequin_Image3.png", "./Mannequin_Image3(10).png"],
                 colors: ["Bleu", "Noir", "Latté", "Gris", "Rose"],
                 specs: "Coupe rétro athlétique • Confort absolu de 350 GSM. Inspiré de l'année de fondation de Québec.",
-                // Image paths fixed for GitHub Pages. Keep these filenames exactly the same in your repo.
                 imageMap: {
-                    "Bleu": ["./Mannequin_Image1.png", "./Mannequin_Image2.png"],
-                    "Noir": ["./Mannequin_Image3.png", "./Mannequin_Image10.png"],
-                    "Latté": ["./Mannequin_Image4.png", "./Mannequin_Image5.png"],
-                    "Gris": ["./gris-front.png", "./gris-back.png"],
-                    "Rose": ["./Mannequin_Image6.png", "./Mannequin_Image7.png"]
+                    // BLEU = navy hoodie
+                    "Bleu": [
+                        ["./Mannequin_Image3.png", "./Mannequin_Image3(10).png"],
+                        ["./Mannequin_Image8.png", "./Mannequin_Image8(3).png", "./Mannequin_Image9.png"]
+                    ],
+
+                    // NOIR = black hoodie
+                    "Noir": [
+                        ["./Mannequin_Image7.png", "./Mannequin_Image1(16).png", "./black-front.png"],
+                        ["./Mannequin_Image10.png", "./Mannequin_Image3(11).png", "./black-back.png"]
+                    ],
+
+                    // LATTÉ = brown/tan hoodie
+                    "Latté": [
+                        ["./Mannequin_Image2.png", "./Mannequin_Image2(7).png", "./latte-front.png"],
+                        ["./Mannequin_Image4(8).png", "./Mannequin_Image10.png", "./latte-back.png"]
+                    ],
+
+                    // GRIS = grey hoodie
+                    "Gris": [
+                        ["./Mannequin_Image1.png", "./Mannequin_Image1(15).png", "./gris-front.png"],
+                        ["./Mannequin_Image6.png", "./Mannequin_Image6(5).png", "./gris-back.png"]
+                    ],
+
+                    // ROSE = pink hoodie
+                    "Rose": [
+                        ["./Mannequin_Image4.png", "./Mannequin_Image4(7).png", "./rose-front.png"],
+                        ["./Mannequin_Image9.png", "./Mannequin_Image5.png", "./rose-back.png"]
+                    ]
                 }
             },
             {
@@ -324,9 +348,42 @@
         ];
 
         let activeProduct = null;
-        let selectedSizeState = "L"; // default
+        let selectedSizeState = "L";
         let selectedColorState = "";
-        let selectedAngleState = "front"; // default angle shown
+        let selectedAngleState = "front";
+
+        function firstImage(imageValue) {
+            if (Array.isArray(imageValue)) {
+                return firstImage(imageValue[0]);
+            }
+            return imageValue || "";
+        }
+
+        function imageFallbacks(imageValue) {
+            if (!Array.isArray(imageValue)) return imageValue ? [imageValue] : [];
+            if (Array.isArray(imageValue[0])) return imageFallbacks(imageValue[0]);
+            return imageValue.filter(Boolean);
+        }
+
+        function attachFallback(img, imageValue) {
+            const fallbacks = imageFallbacks(imageValue);
+            img.dataset.fallbacks = JSON.stringify(fallbacks);
+            img.dataset.fallbackIndex = "0";
+            img.src = fallbacks[0] || "";
+        }
+
+        function useFallbackImage(img) {
+            let fallbacks = [];
+            try { fallbacks = JSON.parse(img.dataset.fallbacks || "[]"); } catch (e) {}
+            let index = Number(img.dataset.fallbackIndex || "0") + 1;
+            if (index < fallbacks.length) {
+                img.dataset.fallbackIndex = String(index);
+                img.src = fallbacks[index];
+                return;
+            }
+            img.onerror = null;
+            img.src = "https://placehold.co/400x500/021B4D/ffffff?text=Fie%CC%80rement+Que%CC%81be%CC%81cois";
+        }
 
         window.onload = function() {
             renderCatalogItems("Tous");
@@ -334,23 +391,19 @@
 
         function renderCatalogItems(categoryFilter) {
             const container = document.getElementById("products-container");
-            container.innerHTML = ""; // Clear
-            
-            const filtered = categoryFilter === "Tous" 
-                ? PRODUCTS_DATABASE 
-                : PRODUCTS_DATABASE.filter(p => p.category === categoryFilter);
+            container.innerHTML = "";
+            const filtered = categoryFilter === "Tous" ? PRODUCTS_DATABASE : PRODUCTS_DATABASE.filter(p => p.category === categoryFilter);
 
             filtered.forEach(p => {
                 const card = document.createElement("div");
                 card.className = "group relative bg-slate-950/40 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 hover:bg-slate-950/60 transition-all duration-300 flex items-center gap-4 cursor-pointer";
                 card.onclick = () => openOrderModal(p.id);
 
-                // Safe fallback logic in case any image path loads with delay or error
                 let mediaHTML = "";
                 if (p.mainImage) {
                     mediaHTML = `
                         <div class="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform relative">
-                            <img src="${p.mainImage}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img alt="${p.title}" class="product-thumb w-full h-full object-cover">
                             <div style="display:none;" class="absolute inset-0 text-2xl flex items-center justify-center bg-slate-950/80 rounded-xl">${p.imageIcon}</div>
                         </div>
                     `;
@@ -373,13 +426,25 @@
                         <div class="flex items-center justify-between mt-2.5">
                             <span class="text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-white/5">${p.category}</span>
                             <span class="text-[11px] text-blue-400 font-bold flex items-center gap-1 group-hover:text-blue-300 transition-colors">
-                                Commander 
+                                Commander
                                 <svg class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                             </span>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
+
+                const img = card.querySelector(".product-thumb");
+                if (img) {
+                    img.onerror = function() {
+                        useFallbackImage(this);
+                        if (this.src.includes("placehold.co")) {
+                            this.style.display = "none";
+                            this.nextElementSibling.style.display = "flex";
+                        }
+                    };
+                    attachFallback(img, p.mainImage);
+                }
             });
         }
 
@@ -396,7 +461,6 @@
             renderCatalogItems(category);
         }
 
-        // Tab Switcher between message and catalog
         function switchTab(target) {
             const viewMsg = document.getElementById("view-message");
             const viewCat = document.getElementById("view-catalog");
@@ -421,15 +485,14 @@
             if (!product) return;
 
             activeProduct = product;
-            selectedSizeState = "L"; // Reset default
-            selectedColorState = product.colors[0]; // Reset to first color available
-            selectedAngleState = "front"; // Reset to front
+            selectedSizeState = "L";
+            selectedColorState = product.colors[0];
+            selectedAngleState = "front";
 
             document.getElementById("modalProdTitle").innerText = product.title;
             document.getElementById("modalProdPrice").innerText = product.price;
             document.getElementById("modalProdType").innerText = product.category;
 
-            // Handle Dynamic Image Showcase inside Modal
             const showcase = document.getElementById("modalImageShowcase");
             if (product.imageMap && product.imageMap[selectedColorState]) {
                 showcase.classList.remove("hidden");
@@ -438,7 +501,6 @@
                 showcase.classList.add("hidden");
             }
 
-            // Render colors options selector
             const colorContainer = document.getElementById("colorContainer");
             const colorSelector = document.getElementById("colorSelector");
             colorSelector.innerHTML = "";
@@ -459,7 +521,6 @@
             updateSizeSelectorsDOM();
             updateGeneratedMessageText();
 
-            // Display modal
             const modal = document.getElementById("orderModal");
             const content = document.getElementById("orderModalContent");
             modal.classList.remove("opacity-0", "pointer-events-none");
@@ -474,11 +535,11 @@
 
             const primaryImg = document.getElementById("primaryShowcaseImg");
             const index = selectedAngleState === "front" ? 0 : 1;
-            
-            // Assign the exact repository file
-            primaryImg.src = images[index] || images[0];
+            const chosenImage = images[index] || images[0];
 
-            // Render angle buttons active/inactive styling
+            primaryImg.onerror = function() { useFallbackImage(this); };
+            attachFallback(primaryImg, chosenImage);
+
             const btnFront = document.getElementById("btnAngleFront");
             const btnBack = document.getElementById("btnAngleBack");
 
@@ -522,14 +583,12 @@
 
         function selectColor(color, element) {
             selectedColorState = color;
+            selectedAngleState = "front";
             document.querySelectorAll("#colorSelector button").forEach(btn => {
                 btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-white/10 bg-slate-800 text-slate-300 transition-all duration-150";
             });
             element.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-blue-500 bg-blue-600/20 text-white transition-all duration-150";
-            
-            if (activeProduct.imageMap) {
-                updateModalGalleryImage();
-            }
+            if (activeProduct.imageMap) updateModalGalleryImage();
             updateGeneratedMessageText();
         }
 
@@ -562,7 +621,6 @@
 
         function copyUsername() {
             const usernameToCopy = "@fierement_quebecois_";
-            
             const tempTextArea = document.createElement("textarea");
             tempTextArea.value = usernameToCopy;
             document.body.appendChild(tempTextArea);
@@ -573,21 +631,15 @@
             const copyBtn = document.getElementById("copyBtn");
             const originalBtnBg = copyBtn.className;
             copyBtn.classList.add("border-emerald-500/30", "bg-emerald-950/20");
-
             showToast("Nom d'utilisateur copié ! Ouvrez Instagram et collez-le.");
-
-            setTimeout(() => {
-                copyBtn.className = originalBtnBg;
-            }, 3000);
+            setTimeout(() => { copyBtn.className = originalBtnBg; }, 3000);
         }
 
         function showToast(message) {
             const toast = document.getElementById("toastNotification");
             document.getElementById("toastMessage").innerText = message;
-
             toast.classList.remove("translate-y-12", "opacity-0", "pointer-events-none");
             toast.classList.add("translate-y-0", "opacity-100");
-
             setTimeout(() => {
                 toast.classList.add("translate-y-12", "opacity-0", "pointer-events-none");
                 toast.classList.remove("translate-y-0", "opacity-100");
