@@ -3,67 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fièrement Québécois | Boutique Officielle</title>
+    <title>FIÈREMENT QUÉBÉCOIS | Boutique Officielle</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background: linear-gradient(135deg, #fffdf9 0%, #f8fafc 100%); }
+        h1,h2,h3,.brand-font { font-family: 'Cinzel', 'Inter', serif; }
+        a, button {
+            transition: transform 0.12s ease, background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+            cursor: pointer;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        a:hover, button:hover {
+            transform: translateY(-1px) scale(1.01);
+        }
+        a:active, button:active {
+            transform: translateY(1px) scale(0.98);
+            opacity: .92;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+        }
+        a, button {
+            will-change: transform, opacity;
+        }
+        .hero-glow {
+            background: radial-gradient(circle at top left, rgba(220, 38, 38, 0.16), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(14, 116, 144, 0.15), transparent 30%);
+        }
+        .qc-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+        .coming-soon-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(2, 6, 23, 0.48);
+            backdrop-filter: blur(5.888px);
+            -webkit-backdrop-filter: blur(5.888px);
+            pointer-events: auto;
+            user-select: none;
+        }
+        .coming-soon-overlay .card {
+            max-width: 520px;
+            width: 100%;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+            padding: 32px 28px;
+            text-align: center;
+        }
+        .coming-soon-overlay.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900">
     <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 py-5 flex items-center justify-between z-50">
         <h1 class="text-xl font-bold tracking-tighter">FIÈREMENT QUÉBÉCOIS</h1>
-        <div class="space-x-8 font-medium text-sm">
+        <div class="flex items-center gap-4 font-medium text-sm">
             <a href="#" class="hover:text-rose-600 transition">Boutique</a>
             <a href="#" class="hover:text-rose-600 transition">À propos</a>
             <a href="checkout.html" class="hover:text-rose-600 transition">Panier</a>
+            <a href="https://www.instagram.com/fierement_quebecois_/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white px-4 py-2 rounded-full hover:opacity-90 transition text-xs font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Nous contacter
+            </a>
+            <button id="lock-btn" onclick="sessionStorage.removeItem('fq_unlocked'); location.reload();" class="text-slate-400 hover:text-slate-700 transition" title="Verrouiller le site">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            </button>
         </div>
     </nav>
 
-    <header class="py-20 px-6 text-center bg-slate-50">
-        <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-6">L'identité, portée avec fierté.</h2>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10">Découvrez notre collection exclusive de vêtements conçus pour célébrer notre culture et notre nordicité.</p>
-        <a href="#shop" class="bg-slate-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-slate-800 transition shadow-lg">Explorer la collection</a>
+    <header class="relative overflow-hidden py-8 md:py-10 px-6 text-center bg-slate-50 border-b border-slate-200">
+        <div class="hero-glow absolute inset-0"></div>
+        <div class="relative max-w-5xl mx-auto">
+            <span class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/80 px-4 py-2 text-sm font-semibold text-rose-700 shadow-sm mb-4">
+                ❄️ Fierté du Nord • Made in Québec
+            </span>
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">L'identité, portée avec fierté.</h2>
+            <p class="text-base md:text-lg text-slate-600 max-w-3xl mx-auto mb-6">Des pièces inspirées du froid, de la culture et du caractère unique du Québec.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#shop" class="bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition shadow-lg">Explorer la collection</a>
+                <a href="#qc-story" class="bg-white text-slate-800 border border-slate-200 px-8 py-3 rounded-full font-semibold hover:bg-slate-100 transition shadow-sm">Pourquoi nous</a>
+            </div>
+        </div>
     </header>
 
-    <main id="shop" class="max-w-7xl mx-auto p-6 py-20">
+    <main id="shop" class="max-w-7xl mx-auto p-6 py-8 md:py-10">
         <div class="flex items-center justify-between mb-12">
             <h3 class="text-3xl font-bold">Nos essentiels</h3>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             <!-- Product: Vent du Nordet -->
-            <a href="product.html?id=vent-du-nordet" class="group block">
+            <a href="product.html" class="group block">
                 <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
-                    <!-- Changed src to point to your uploaded file -->
-                    <img src="VENTDUNORDETNAVY.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Vent du Nordet">
+                    <img src="VENTDUNORDETNAVY.webp" onerror="this.src='https://placehold.co/600x600/334155/fff?text=Vent+du+Nordet'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Vent du Nordet">
                 </div>
                 <h4 class="text-lg font-semibold">T-shirt Vent du Nordet</h4>
                 <p class="text-slate-500 font-medium">34.99 $</p>
             </a>
 
-            <!-- Product: Placeholder 2 -->
-            <a href="#" class="group block">
+            <!-- Product: Québec Hoodie -->
+            <a href="product-hoodie.html" class="group block">
                 <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
-                    <img src="https://placehold.co/600x600/334155/fff?text=Nouveauté" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Produit">
+                    <img src="6fa3a93145df4154b0b412ea97d8a5ea.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Hoodie Québec">
                 </div>
-                <h4 class="text-lg font-semibold">Hoodie Signature</h4>
+                <h4 class="text-lg font-semibold">Hoodie Québec</h4>
                 <p class="text-slate-500 font-medium">64.99 $</p>
             </a>
 
-            <!-- Product: Placeholder 3 -->
-            <a href="#" class="group block">
+            <!-- Product: Le Bleu Blanc Rouge T-shirt -->
+            <a href="product-tuque.html" class="group block">
                 <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
-                    <img src="https://placehold.co/600x600/475569/fff?text=Bientôt" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Produit">
+                    <img src="624c0f588a864aff99dacb01a83ca287.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="T-shirt Le Bleu Blanc Rouge">
                 </div>
-                <h4 class="text-lg font-semibold">Tuque Classique</h4>
-                <p class="text-slate-500 font-medium">24.99 $</p>
+                <h4 class="text-lg font-semibold">T-shirt Le Bleu Blanc Rouge</h4>
+                <p class="text-slate-500 font-medium">34.99 $</p>
             </a>
         </div>
     </main>
 
+    <section id="qc-story" class="max-w-7xl mx-auto px-6 pt-4 pb-12">
+        <div class="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-rose-50 via-white to-slate-50 p-8 md:p-10 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div class="max-w-2xl">
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600 mb-3">Le Québec en mode boutique</p>
+                    <h3 class="text-3xl font-bold mb-3">Une ambiance qui respire le nord, la fierté et la chaleur humaine.</h3>
+                    <p class="text-slate-600">Notre boutique met en valeur un style qui parle autant de l'hiver québécois que de l'énergie des rues, des familles et des traditions.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4 min-w-[220px] shadow-sm">
+                    <p class="text-sm font-semibold text-slate-800">« On porte ce qui nous unit. »</p>
+                    <p class="text-sm text-slate-500 mt-1">— Une idée de boutique, une vraie vibe québécoise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-slate-50 border-t border-slate-200 p-12 text-center text-slate-500 text-sm">
         <p>&copy; 2026 Fièrement Québécois. Tous droits réservés.</p>
     </footer>
+
+    <div id="coming-soon-overlay" class="coming-soon-overlay" aria-label="Coming soon overlay">
+        <div class="card">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-600 mb-3">Bientôt disponible</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Bientôt disponible</h2>
+            <p class="text-slate-600">Le site est en cours de préparation. Vous pouvez <a href="https://www.instagram.com/fierement_quebecois_/" target="_blank" rel="noopener noreferrer" class="text-rose-600 font-semibold hover:underline">nous écrire sur Instagram</a> pour demander le mot de passe — on verra si on vous le donne. Ou essayez de le deviner&nbsp;😏</p>
+            <form id="password-form" class="mt-6">
+                <label for="password-input" class="block text-sm font-medium text-slate-700 mb-2">Entrer le mot de passe</label>
+                <input id="password-input" type="password" placeholder="Mot de passe" class="w-full rounded-xl border border-slate-300 px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-slate-900" />
+                <button type="submit" class="w-full rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition">Entrer</button>
+                <p id="password-message" class="mt-3 text-sm text-rose-600"></p>
+            </form>
+        </div>
+    </div>
+    <script>
+        const correctPassword = 'SAINTJEAN';
+        const overlay = document.getElementById('coming-soon-overlay');
+        const form = document.getElementById('password-form');
+        const input = document.getElementById('password-input');
+        const message = document.getElementById('password-message');
+        const unlockKey = 'fq_unlocked';
+
+        function unlockSite() {
+            overlay.classList.add('hidden');
+            message.textContent = '';
+            sessionStorage.setItem(unlockKey, 'true');
+        }
+
+        if (sessionStorage.getItem(unlockKey) === 'true') {
+            overlay.classList.add('hidden');
+        }
+
+        if (form && overlay && input && message) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (input.value.trim() === correctPassword) {
+                    unlockSite();
+                } else {
+                    message.textContent = 'Mot de passe incorrect.';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
