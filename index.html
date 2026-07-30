@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background: linear-gradient(135deg, #fffdf9 0%, #f8fafc 100%); }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background: linear-gradient(160deg, #eaf4fb 0%, #f0f7ff 40%, #e8f0f8 100%); }
         h1,h2,h3,.brand-font { font-family: 'Cinzel', 'Inter', serif; }
         a, button {
             transition: transform 0.12s ease, background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
@@ -28,13 +28,20 @@
             will-change: transform, opacity;
         }
         .hero-glow {
-            background: radial-gradient(circle at top left, rgba(220, 38, 38, 0.16), transparent 28%),
-                        radial-gradient(circle at bottom right, rgba(14, 116, 144, 0.15), transparent 30%);
+            background: radial-gradient(circle at top left, rgba(147, 197, 253, 0.35), transparent 35%),
+                        radial-gradient(circle at bottom right, rgba(186, 230, 253, 0.3), transparent 40%),
+                        radial-gradient(circle at top right, rgba(220, 38, 38, 0.08), transparent 25%);
+        }
+        .frost-card {
+            background: linear-gradient(135deg, rgba(240,249,255,0.98), rgba(224,242,254,0.95));
+            border: 1px solid rgba(147, 197, 253, 0.35);
+            box-shadow: 0 4px 24px rgba(96, 165, 250, 0.08), inset 0 1px 0 rgba(255,255,255,0.8);
         }
         .qc-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
-            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: linear-gradient(135deg, rgba(240,249,255,0.98), rgba(224,242,254,0.95));
+            border: 1px solid rgba(147, 197, 253, 0.3);
         }
+        nav { background: rgba(236, 246, 255, 0.92) !important; border-bottom-color: rgba(147, 197, 253, 0.3) !important; }
         .coming-soon-overlay {
             position: fixed;
             inset: 0;
@@ -80,30 +87,30 @@
         </div>
     </nav>
 
-    <header class="relative overflow-hidden py-8 md:py-10 px-6 text-center bg-slate-50 border-b border-slate-200">
+    <header class="relative overflow-hidden py-8 md:py-10 px-6 text-center border-b" style="background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 60%, #f0f9ff 100%); border-color: rgba(147,197,253,0.4);">
         <div class="hero-glow absolute inset-0"></div>
         <div class="relative max-w-5xl mx-auto">
-            <span class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/80 px-4 py-2 text-sm font-semibold text-rose-700 shadow-sm mb-4">
-                ❄️ Fierté du Nord • Made in Québec
+            <span class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm mb-4" style="background: rgba(219,234,254,0.85); border-color: rgba(147,197,253,0.6); color: #1d4ed8;">
+                ❄️ Conçu au Québec • Porté par des Québécois
             </span>
             <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">L'identité, portée avec fierté.</h2>
-            <p class="text-base md:text-lg text-slate-600 max-w-3xl mx-auto mb-6">Des pièces inspirées du froid, de la culture et du caractère unique du Québec.</p>
+            <p class="text-base md:text-lg max-w-3xl mx-auto mb-6" style="color: #1e3a5f;">Des pièces nées du froid, de la neige et du caractère brut du Québec. Quand l'hiver devient une identité.</p>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="#shop" class="bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition shadow-lg">Explorer la collection</a>
-                <a href="#qc-story" class="bg-white text-slate-800 border border-slate-200 px-8 py-3 rounded-full font-semibold hover:bg-slate-100 transition shadow-sm">Pourquoi nous</a>
+                <a href="#shop" class="text-white px-8 py-3 rounded-full font-semibold transition shadow-lg" style="background: linear-gradient(135deg, #1e40af, #1d4ed8);">Explorer la collection</a>
+                <a href="#qc-story" class="px-8 py-3 rounded-full font-semibold transition shadow-sm" style="background: rgba(219,234,254,0.9); color: #1e3a5f; border: 1px solid rgba(147,197,253,0.5);">Notre histoire</a>
             </div>
         </div>
     </header>
 
-    <main id="shop" class="max-w-7xl mx-auto p-6 py-8 md:py-10">
+    <main id="shop" class="max-w-7xl mx-auto p-6 py-8 md:py-10" style="background: transparent;">
         <div class="flex items-center justify-between mb-12">
             <h3 class="text-3xl font-bold">Nos essentiels</h3>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 frost-card p-8 rounded-3xl">
             <!-- Product: Vent du Nordet -->
             <a href="product.html" class="group block">
-                <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
+                <div class="aspect-square rounded-2xl overflow-hidden mb-4" style="background: #dbeafe; border: 1px solid rgba(147,197,253,0.4);">
                     <img src="VENTDUNORDETNAVY.webp" onerror="this.src='https://placehold.co/600x600/334155/fff?text=Vent+du+Nordet'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Vent du Nordet">
                 </div>
                 <h4 class="text-lg font-semibold">T-shirt Vent du Nordet</h4>
@@ -112,7 +119,7 @@
 
             <!-- Product: Québec Hoodie -->
             <a href="product-hoodie.html" class="group block">
-                <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
+                <div class="aspect-square rounded-2xl overflow-hidden mb-4" style="background: #dbeafe; border: 1px solid rgba(147,197,253,0.4);">
                     <img src="6fa3a93145df4154b0b412ea97d8a5ea.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Hoodie Québec">
                 </div>
                 <h4 class="text-lg font-semibold">Hoodie Québec</h4>
@@ -121,7 +128,7 @@
 
             <!-- Product: Le Bleu Blanc Rouge T-shirt -->
             <a href="product-tuque.html" class="group block">
-                <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden mb-4 border border-slate-200">
+                <div class="aspect-square rounded-2xl overflow-hidden mb-4" style="background: #dbeafe; border: 1px solid rgba(147,197,253,0.4);">
                     <img src="624c0f588a864aff99dacb01a83ca287.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="T-shirt Le Bleu Blanc Rouge">
                 </div>
                 <h4 class="text-lg font-semibold">T-shirt Le Bleu Blanc Rouge</h4>
@@ -131,22 +138,22 @@
     </main>
 
     <section id="qc-story" class="max-w-7xl mx-auto px-6 pt-4 pb-12">
-        <div class="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-rose-50 via-white to-slate-50 p-8 md:p-10 shadow-sm">
+        <div class="rounded-[2rem] p-8 md:p-10 shadow-sm" style="background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 50%, #e0f2fe 100%); border: 1px solid rgba(147,197,253,0.45);">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                 <div class="max-w-2xl">
-                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600 mb-3">Le Québec en mode boutique</p>
-                    <h3 class="text-3xl font-bold mb-3">Une ambiance qui respire le nord, la fierté et la chaleur humaine.</h3>
-                    <p class="text-slate-600">Notre boutique met en valeur un style qui parle autant de l'hiver québécois que de l'énergie des rues, des familles et des traditions.</p>
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] mb-3" style="color: #1d4ed8;">❄️ L'hiver comme identité</p>
+                    <h3 class="text-3xl font-bold mb-3" style="color: #0f2d5e;">Quand le froid devient quelque chose à porter avec fierté.</h3>
+                    <p style="color: #1e3a5f;">Nos pièces parlent de tempêtes, de cabanage, de neige fraîche et de cette fierté tranquille qu'on a tous d'être Québécois.</p>
                 </div>
-                <div class="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4 min-w-[220px] shadow-sm">
-                    <p class="text-sm font-semibold text-slate-800">« On porte ce qui nous unit. »</p>
-                    <p class="text-sm text-slate-500 mt-1">— Une idée de boutique, une vraie vibe québécoise</p>
+                <div class="rounded-2xl px-5 py-4 min-w-[220px] shadow-sm" style="background: rgba(219,234,254,0.85); border: 1px solid rgba(147,197,253,0.5);">
+                    <p class="text-sm font-semibold" style="color: #0f2d5e;">« Le Québec, ça se porte. »</p>
+                    <p class="text-sm mt-1" style="color: #1e40af;">— Conçu au Québec, porté par des Québécois</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-50 border-t border-slate-200 p-12 text-center text-slate-500 text-sm">
+    <footer class="p-12 text-center text-sm" style="background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%); border-top: 1px solid rgba(147,197,253,0.4); color: #1e40af;">
         <p>&copy; 2026 Fièrement Québécois. Tous droits réservés.</p>
     </footer>
 
